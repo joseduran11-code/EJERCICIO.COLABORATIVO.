@@ -1,7 +1,6 @@
 from datetime import datetime
 import os
 
-
 # --------------------------------------------------
 # FUNCIÓN: registrar_log
 # Permite registrar eventos y errores dentro
