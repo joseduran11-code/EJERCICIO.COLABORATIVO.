@@ -41,7 +41,6 @@ def registrar_log(tipo, mensaje):
             "=" * 50 + "\n"
         )
 
-
 # --------------------------------------------------
 # EXCEPCIÓN PERSONALIZADA
 # Se utiliza cuando los datos del cliente
@@ -50,7 +49,6 @@ def registrar_log(tipo, mensaje):
 
 class ClienteInvalidoError(Exception):
     pass
-
 
 # --------------------------------------------------
 # CLASE CLIENTE
@@ -207,7 +205,6 @@ class Cliente:
             f"Teléfono: {self._telefono}"
         )
 
-
 # --------------------------------------------------
 # PRUEBA 1
 # Registro válido de cliente.
@@ -242,7 +239,6 @@ except ClienteInvalidoError as error:
         str(error)
     )
 
-
 # --------------------------------------------------
 # PRUEBA 2
 # Actualización de datos.
@@ -264,7 +260,6 @@ except ClienteInvalidoError as error:
         "ERROR",
         str(error)
     )
-
 
 # --------------------------------------------------
 # PRUEBA 3
