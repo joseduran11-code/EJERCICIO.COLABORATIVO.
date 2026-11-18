@@ -1,5 +1,5 @@
-from Servicio import Servicio
-from excepciones import ParametroServicioError
+from Fase4 import Servicio
+from Fase4 import ParametroServicioError
 
 class ReservaSala(Servicio):
   def validar_parametros(self,duracion):
