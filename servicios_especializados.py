@@ -1,7 +1,7 @@
-from servicio import servicio
+from Servicio import Servicio
 from excepciones import ParametroServicioError
 
-class ReservaSala(servicio):
+class ReservaSala(Servicio):
   def validar_parametros(self,duracion):
     if duracion <= 0:
       raise ParametroServicioError(
@@ -29,7 +29,7 @@ def describir_servicio(self):
     f"Tarifa por hora: ${self.tarifa_:,.0f}"
   )
 
-class AlquilerEquipo(servicio):
+class AlquilerEquipo(Servicio):
   def validar_parametros(self, duracion):
     if duracion <= 0:
       raise ParametroServicioError(
@@ -66,7 +66,7 @@ def describir_servicio(self):
   f"Tarifa diaria: ${self.tarifa_base:,.0f}"
 )
 
-class AsesoriaEspecializada(servicio):
+class AsesoriaEspecializada(Servicio):
 
   def validar_parametros(self, duracion):
     if duracion <= 0:
