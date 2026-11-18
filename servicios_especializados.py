@@ -1,97 +1,88 @@
+
 from Fase4 import Servicio
-from Fase4 import ParametroServicioError
+
 
 class ReservaSala(Servicio):
-  def validar_parametros(self,duracion):
-    if duracion <= 0:
-      raise ParametroServicioError(
-        "La duracion de la reserva debe ser mayor que cero."
-      )
 
-def calcular_costo(
-  self, duracion, descuento=0.0, impuesto=0.0
-):
-  self.validar_parametros(duracion)
-  
-  if not 0 <= descuento <=1 or impuesto < 0:
-    raise ParametroServicioError(
-      "El descuento o impuesto no es valido."
-    )
-  costo_base = self._precio * duracion
-  costo_con_descuento = costo_base *(1 - descuento)
-  costo_final = costo_con_descuento * (1 + impuesto)
+    def validar_parametros(self, duracion):
 
-  return costo_final
+        if not isinstance(duracion, (int, float)) or isinstance(duracion, bool) or duracion <= 0:
+            raise ValueError(
+                "La duracion de la reserva debe ser mayor que cero."
+            )
 
-def describir_servicio(self):
-  return(
-    f"Reserva de sala: {self.nombre}."
-    f"Tarifa por hora: ${self.tarifa_:,.0f}"
-  )
+    def calcular_costo(self, duracion, impuesto=0.0, descuento=0.0):
+
+        self.validar_parametros(duracion)
+
+        if not 0 <= descuento <= 1 or impuesto < 0:
+            raise ValueError("Descuento o impuesto no valido.")
+
+        costo_base = self.precio * duracion
+        return costo_base * (1 - descuento) * (1 + impuesto)
+
+    def describir(self):
+
+        return (
+            f"Reserva de sala: {self.nombre}. "
+            f"Tarifa por hora: ${self.precio:,.0f}"
+        )
+
 
 class AlquilerEquipo(Servicio):
-  def validar_parametros(self, duracion):
-    if duracion <= 0:
-      raise ParametroServicioError(
-        "los dias de alquiler deben ser mayores que cero."
-      )
 
-def calcular_costo(
-  self,
-  duracion,
-  descuento=0.0,
-  impuesto=0.0,
-  *,
-  cantidad=1
-):
-  self.validar_parametros(duracion)
+    def validar_parametros(self, duracion):
 
-  if cantidad <= 0:
-    raise ParametroServicioError(
-      "La cantidad de equipos debe ser mayor que cero."
-    )
-  if not 0 <= descuento <= 1 or impuesto < 0:
-    raise ParametroServicioError(
-      "El Descuento o Impuesto no es Valido."
-    )
-  costo_base = self._precio * duracion * cantidad
-  costo_con_descuento = costo_base * (1 - descuento)
-  costo_final = costo_con_descuento * (1 + impuesto)
+        if not isinstance(duracion, (int, float)) or isinstance(duracion, bool) or duracion <= 0:
+            raise ValueError(
+                "Los dias de alquiler deben ser mayores que cero."
+            )
 
-  return costo_final
+    def calcular_costo(
+        self, duracion, impuesto=0.0, descuento=0.0, *, cantidad=1
+    ):
 
-def describir_servicio(self):
-  return(
-  f"Alquiler de Equipos: {self.nombre}. "
-  f"Tarifa diaria: ${self.tarifa_base:,.0f}"
-)
+        self.validar_parametros(duracion)
+
+        if not isinstance(cantidad, int) or isinstance(cantidad, bool) or cantidad <= 0:
+            raise ValueError("Cantidad de equipos no valida.")
+
+        if not 0 <= descuento <= 1 or impuesto < 0:
+            raise ValueError("Descuento o impuesto no valido.")
+
+        costo_base = self.precio * duracion * cantidad
+        return costo_base * (1 - descuento) * (1 + impuesto)
+
+    def describir(self):
+
+        return (
+            f"Alquiler de equipos: {self.nombre}. "
+            f"Tarifa diaria: ${self.precio:,.0f}"
+        )
+
 
 class AsesoriaEspecializada(Servicio):
 
-  def validar_parametros(self, duracion):
-    if duracion <= 0:
-      raise ParametroServicioError(
-        "Las horas de asesoria deben ser mayores que cero."
-      )
+    def validar_parametros(self, duracion):
 
-def calcular_costo(
-  self, duracion, descuento=0.0, impuesto=0.0
-):
-  self.validar_parametros(duracion)
+        if not isinstance(duracion, (int, float)) or isinstance(duracion, bool) or duracion <= 0:
+            raise ValueError(
+                "Las horas de asesoria deben ser mayores que cero."
+            )
 
-  if not 0 <= descuento <= 1 or impuesto < 0:
-    raise ParametroServicioError(
-      "EL descuento no es valido."
-    )
-  costo_base = self._precio * duracion
-  costo_con_descuento = costo_base * (1 - descuento)
-  costo_final = costo_con_descuento * (1 + impuesto)
+    def calcular_costo(self, duracion, impuesto=0.0, descuento=0.0):
 
-  return costo_final
+        self.validar_parametros(duracion)
 
+        if not 0 <= descuento <= 1 or impuesto < 0:
+            raise ValueError("Descuento o impuesto no valido.")
 
-def describir_servicio(self):
-  return (
-  f"Asesoria especializada: {self.nombre}. "
-  f"Tarifa por hora: ${self.tarifa_base:,.0f}"
-)
+        costo_base = self.precio * duracion
+        return costo_base * (1 - descuento) * (1 + impuesto)
+
+    def describir(self):
+
+        return (
+            f"Asesoria especializada: {self.nombre}. "
+            f"Tarifa por hora: ${self.precio:,.0f}"
+        )
