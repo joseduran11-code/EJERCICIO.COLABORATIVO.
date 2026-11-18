@@ -15,7 +15,7 @@ def calcular_costo(
   
   if not 0 <= descuento <=1 or impuesto < 0:
     raise ParametroServicioError(
-      "El descuento o impesto no es valido."
+      "El descuento o impuesto no es valido."
     )
   costo_base = self.tarifa_base * duracion
   costo_con_descuento = costo_base *(1 - descuento)
