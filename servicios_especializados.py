@@ -17,7 +17,7 @@ def calcular_costo(
     raise ParametroServicioError(
       "El descuento o impuesto no es valido."
     )
-  costo_base = self.tarifa_base * duracion
+  costo_base = self._precio * duracion
   costo_con_descuento = costo_base *(1 - descuento)
   costo_final = costo_con_descuento * (1 + impuesto)
 
@@ -54,7 +54,7 @@ def calcular_costo(
     raise ParametroServicioError(
       "El Descuento o Impuesto no es Valido."
     )
-  costo_base = self.tarifa_base * duracion * cantidad
+  costo_base = self._precio * duracion * cantidad
   costo_con_descuento = costo_base * (1 - descuento)
   costo_final = costo_con_descuento * (1 + impuesto)
 
@@ -83,7 +83,7 @@ def calcular_costo(
     raise ParametroServicioError(
       "EL descuento no es valido."
     )
-  costo_base = self.tarifa_base * duracion
+  costo_base = self._precio * duracion
   costo_con_descuento = costo_base * (1 - descuento)
   costo_final = costo_con_descuento * (1 + impuesto)
 
