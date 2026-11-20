@@ -1,6 +1,5 @@
 from datetime import datetime
 import os
-from abc import ABC, abstractmethod
 
 # --------------------------------------------------
 # FUNCIÓN: registrar_log
@@ -205,171 +204,83 @@ class Cliente:
             f"Teléfono: {self._telefono}"
         )
 
-# -----------------------------------------------------
-# INTEGRANTE 2: EXCEPCION PERSONALIZADA DE SERVICIOS
-# -----------------------------------------------------
-
-class ServicioInvalidoError(Exception):
-    pass
-    
-# ----------------------------------------------
-# CLASE ABSTRACTA SERVICIO
-# se define la estructura general de los 
-# servicios que ofrece la empresa 
-# ----------------------------------------------
-
-class Servicio(ABC):
-
-    def __init__(self, codigo, nombre, precio, disponible=True):
-
-        # VALIDAR CODIGO
-        if not isinstance(codigo, str) or not codigo.strip():
-            raise ServicioInvalidoError(
-                "El codigo del servicio es obligatorio."
-            )
-
-        # VALIDAR NOMBRE
-        if not isinstance(nombre, str) or not nombre.strip():
-            raise ServicioInvalidoError(
-                "El nombre del servicio es obligatorio."
-            )
-
-        # VALIDAR PRECIO
-        if (
-            not isinstance(precio, (int, float))
-            or isinstance(precio, bool)
-            or precio <= 0
-        ):
-            raise ServicioInvalidoError(
-                "El precio debe ser un numero mayor que cero."
-            )
-
-        # VALIDAR DISPONIBILIDAD
-        if not isinstance(disponible, bool):
-            raise ServicioInvalidoError(
-                "La disponibilidad debe ser verdadera o falsa."
-            )
-
-        # ATRIBUTOS DEL SERVICIO
-        self._codigo = codigo
-        self._nombre = nombre
-        self._precio = precio
-        self._disponible = disponible
-
-    # ----------------------------------------------
-    # METODOS GET PARA CONSULTAR LOS ATRIBUTOS
-    # ----------------------------------------------
-    
-    @property
-    def codigo(self):
-        return self._codigo
-
-    @property
-    def nombre(self):
-        return self._nombre
-
-    @property
-    def precio(self):
-        return self._precio
-
-    @property
-    def disponible(self):
-        return self._disponible
-
-    # ----------------------------------------------
-    # METODO PARA CAMBIAR LA DISPONIBILIDAD
-    # ----------------------------------------------
-    
-    def cambiar_disponibilidad(self, estado):
-
-        if not isinstance(estado, bool):
-            raise ServicioInvalidoError(
-                "El estado debe ser verdadero o falso."
-            )
-
-        self._disponible = estado
-
-    # ----------------------------------------------
-    # METODOS ABSTRACTOS
-    # Las clases hijas deben implementarlos para 
-    # que pueda operarse.
-    # ----------------------------------------------
-    
-    @abstractmethod
-    def calcular_costo(self, duracion, impuesto=0, descuento=0):
-        pass
-
-    @abstractmethod
-    def describir(self):
-        pass
-
-    @abstractmethod
-    def validar_parametros(self, parametro):
-        pass
-
 # --------------------------------------------------
-# PRUEBAS
+# PRUEBA 1
+# Registro válido de cliente.
 # --------------------------------------------------
-
-
-# PRUEBA 1: REGISTRO DE CLIENTE
-
-print("\n   PRUEBA 1: REGISTRO DE CLIENTE   ")
 
 try:
+
     cliente1 = Cliente(
-        "Angel Mendoza",
-        "10422457",
-        "angel@gmail.com",
-        "3012323232"
+        "Jose Duran",
+        "1048271",
+        "jose@gmail.com",
+        "3001234567"
     )
 
-    print("Cliente registrado correctamente.")
-    print(cliente1.obtener_datos())
+    print(
+        cliente1.obtener_datos()
+    )
 
-    registrar_log("EVENTO", "Cliente registrado correctamente.")
-
-except ClienteInvalidoError as error:
-    print("Error:", error)
-    registrar_log("ERROR", str(error))
-
-
-# PRUEBA 2: ACTUALIZAR DATOS
-
-print("\n   PRUEBA 2: ACTUALIZAR DATOS   ")
-
-try:
-    cliente1.actualizar_correo("angel.men@gmail.com")
-    cliente1.actualizar_telefono("3019898989")
-
-    print("Datos actualizados correctamente.")
-    print(cliente1.obtener_datos())
+    registrar_log(
+        "EVENTO",
+        "Cliente registrado correctamente."
+    )
 
 except ClienteInvalidoError as error:
-    print("Error:", error)
-    registrar_log("ERROR", str(error))
 
+    print(
+        f"ERROR: {error}"
+    )
 
-# PRUEBA 3: CLIENTE INVALIDO
+    registrar_log(
+        "ERROR",
+        str(error)
+    )
 
-print("\n   PRUEBA 3: CLIENTE INVALIDO   ")
+# --------------------------------------------------
+# PRUEBA 2
+# Actualización de datos.
+# --------------------------------------------------
 
 try:
-    cliente2 = Cliente("", "ABC", "correoinvalido", "123")
 
-    print("Cliente creado correctamente.")
+    cliente1.actualizar_correo(
+        "jose.duran@gmail.com"
+    )
+
+    cliente1.actualizar_telefono(
+        "3019876543"
+    )
 
 except ClienteInvalidoError as error:
-    print("Excepcion detectada:", error)
-    registrar_log("ERROR", str(error))
 
+    registrar_log(
+        "ERROR",
+        str(error)
+    )
 
-# PRUEBA 4: CLASE ABSTRACTA SERVICIO
-
-print("\n   PRUEBA 4: CLASE ABSTRACTA SERVICIO   ")
+# --------------------------------------------------
+# PRUEBA 3
+# Cliente inválido para verificar excepciones.
+# --------------------------------------------------
 
 try:
-    servicio1 = Servicio("S01", "Sala de reuniones", 40000)
 
-except TypeError:
-    print("No se puede crear directamente un objeto de Servicio.")
+    cliente2 = Cliente(
+        "",
+        "ABC",
+        "correoinvalido",
+        "123"
+    )
+
+except ClienteInvalidoError as error:
+
+    print(
+        f"ERROR: {error}"
+    )
+
+    registrar_log(
+        "ERROR",
+        str(error)
+    )
