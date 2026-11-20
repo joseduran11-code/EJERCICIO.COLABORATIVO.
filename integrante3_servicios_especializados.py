@@ -1,5 +1,5 @@
 
-from Fase4 import Servicio
+from integrante2_servicio import Servicio
 
 
 class ReservaSala(Servicio):
